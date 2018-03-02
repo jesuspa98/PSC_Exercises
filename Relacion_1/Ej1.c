@@ -5,7 +5,7 @@ void pointer(int *ptr){
 }
 
 int main(){
-	int x = 10;
+	int x = 20;
 	int *ptr = &x;
 	printf("Ejercicio 1\n");
 	pointer(ptr);
