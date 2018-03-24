@@ -10,6 +10,11 @@ Ejercicios de la primera relación de programación de sistemas:
 
 
 # Práctica 1
-Ejercicios de la primera práctica de programacion de sistemas: Gestión Dinámica de memoria (DRON):
+Ejercicios de la primera práctica de programación de sistemas: Gestión Dinámica de memoria (DRON):
 
     http://bit.ly/2tSkW47
+
+# Práctica 2
+Ejercicio de la segunda práctica de programación de sistemas: Desencriptación de un archivo:
+
+    https://bit.ly/2GaUlko
