@@ -18,3 +18,8 @@ Ejercicios de la primera práctica de programación de sistemas: Gestión Dinám
 Ejercicio de la segunda práctica de programación de sistemas: Desencriptación de un archivo:
 
     https://bit.ly/2GaUlko
+    
+# Práctica 2_B
+Archivos de la segunda práctica del tema 2 de programación de sistemas: Árbol Binario:
+    
+    https://bit.ly/2IsDCtD
