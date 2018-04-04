@@ -46,12 +46,19 @@ void createFile(char *nFile) {
 /**
  * Show in screen the numbers' list (unsigned int) stored in the binary file "nFile"
  */
-void showFile(char *nFile) {//TODO Finish this method
+void showFile(char *nFile){
     FILE* f;
+    int number;
+
     f = fopen(nFile, "rb");
 
     if(f == NULL){
         perror("Couldn't open the file");
+    }else{
+        while(fread(&number, sizeof(number), 1, f) == 1){
+            printf(" %d", number);
+        }
+        fclose(f);
     }
 
 }
@@ -100,10 +107,10 @@ int main(void) {
 	printf("\n Now, we save it organized\n");
 	FILE * file;
 	file = fopen (nFile, "wb");
-	//TODO Saves (myTree, file);
+	Saves (myTree, file);
 	fclose (file);
 	printf("\n And show it organized\n");
-	//TODO showFile(nFile);
+	showFile(nFile);
     Destroy(&myTree);
 
 	return EXIT_SUCCESS;

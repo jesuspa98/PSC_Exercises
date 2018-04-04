@@ -62,5 +62,13 @@ void Show(T_Tree tree){
  * subarbol izquierdo, nodo, subarbol derecho.
  */
 void Saves(T_Tree tree, FILE *file){
-    //TODO implement this method
+    if(file != NULL){
+        if(tree != NULL){
+            Saves(tree->left, file);
+            fwrite(&tree->data, sizeof(tree->data), 1, file);
+            Saves(tree->right, file);
+        }
+    }else{
+        perror("Couldn't open the file.");
+    }
 }
