@@ -8,7 +8,9 @@ Ejercicios de la primera relación de programación de sistemas:
 
     http://bit.ly/2FHpks8
 
-
+Cola prioridad:
+    https://bit.ly/2GypW3V
+    
 # Práctica 1
 Ejercicios de la primera práctica de programación de sistemas: Gestión Dinámica de memoria (DRON):
 
@@ -23,3 +25,11 @@ Ejercicio de la segunda práctica de programación de sistemas: Desencriptación
 Archivos de la segunda práctica del tema 2 de programación de sistemas: Árbol Binario:
     
     https://bit.ly/2IsDCtD
+    
+# Examen 1
+Examen del año pasado del parcial del bloque de sistemas
+    https://bit.ly/2GB4J5e    
+
+# Examen 2
+Examen de hace dos años del bloque de sistemas:  
+    https://bit.ly/2GYj4wl
