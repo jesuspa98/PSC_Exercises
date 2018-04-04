@@ -1,14 +1,17 @@
+/*
+ * Created by jesuspa98 on 01/04/18.
+ */
 #include <stdio.h>
 
-void pointer(int *ptr){
-	printf("Lo que contiene la variable es: %d\n", *ptr);
+void punteros(int *pointer){
+    printf("The value of the pointer is: %d", *pointer);
 }
 
-int main(){
-	int x = 20;
-	int *ptr = &x;
-	printf("Ejercicio 1\n");
-	pointer(ptr);
-
-	return 0;
+int main() {
+    int value = 10;
+    int *pointer;
+    pointer = &value;
+    printf("Program to show a pointer's value.\n\n");
+    punteros(pointer);
+    return 0;
 }
