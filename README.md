@@ -3,6 +3,8 @@ C Exercises
 
 Ejercicios en C de la Asignatura Programación de Sistemas y Concurrencia.
 
+Aqui están los enlaces a los diferentes enunciados: 
+
 # Relación 1
 Ejercicios de la primera relación de programación de sistemas:
 
