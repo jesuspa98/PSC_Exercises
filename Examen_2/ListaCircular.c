@@ -29,7 +29,8 @@ void mover(TListaCircular *lc,int n){
 
 }
 
-// TODO elimina el primer nodo de la lista, y devuelve el nombre que contiene a través del parámetro nombre
+// TODO elimina el primer nodo de la lista, y devuelve el nombre que contiene a
+// TODO través del parámetro nombre
 void extraer(TListaCircular *lc,char *nombre){
 
 }
