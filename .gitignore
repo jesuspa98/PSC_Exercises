@@ -1,7 +1,7 @@
 # Prerequisites
 *.d
 .DS_Store
-
+.idea/
 
 # Object files
 *.o
