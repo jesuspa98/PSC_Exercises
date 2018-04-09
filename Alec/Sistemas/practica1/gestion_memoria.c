@@ -8,76 +8,75 @@
 #define MEMORYSIZE 1000
 
 void crear(T_Manejador* manejador){
-    *manejador = (T_Manejador) malloc(sizeof(struct T_Nodo));
+    *manejador = (struct T_Nodo*) malloc(sizeof(struct T_Nodo));
     (*manejador)->inicio = 0;
-    (*manejador)->fin = MEMORYSIZE - 1;
+    (*manejador)->fin = MEMORYSIZE-1;
     (*manejador)->sig = NULL;
 }
 
 void obtener(T_Manejador *manejador, unsigned tam, unsigned* dir, unsigned* ok){
-    T_Manejador aux = *manejador;
+    T_Manejador actual = *manejador;
     T_Manejador anterior = NULL;
-    while(aux->sig != NULL && ((aux->fin - aux->inicio + 1)< tam)){
-        anterior = aux;
-        aux = aux->sig;
+    while(actual->sig != NULL && (actual->fin - actual->inicio) < tam){
+        anterior = actual;
+        actual = actual->sig;
     }
-    *ok = aux != NULL;
-    if(*ok) {
-        *dir = aux->inicio;
-        if ((aux->fin - aux->inicio + 1) == tam) {
-            if (anterior == NULL) {
-                *manejador = aux->sig;
-
+    *ok = actual != NULL;
+    if(*ok){
+        *dir = actual->inicio;
+        if((actual->fin - actual->inicio + 1) == tam){
+            if(anterior == NULL){
+                *manejador = actual->sig;
             } else {
-                anterior->sig = aux->sig;
+                anterior->sig = actual->sig;
             }
-            free(aux);
+            free(actual);
         } else {
-            aux->inicio += tam;
+            actual->inicio +=tam;
         }
     }
 }
 
 void devolver(T_Manejador *manejador, unsigned tam, unsigned dir){
     T_Manejador head = *manejador;
-    T_Manejador anterior = NULL;
-    T_Manejador nuevo;
+    T_Manejador new, last = NULL;
     char pegadoanterior, pegadoposterior;
     while(head->sig != NULL && head->inicio < dir){
-        anterior = head;
+        last = head;
         head = head->sig;
     }
-    pegadoanterior = anterior != NULL && dir == (anterior->fin);
+    pegadoanterior = last != NULL && dir == (last->fin);
     pegadoposterior = head->sig != NULL && (dir + tam) == (head->inicio);
-    if(pegadoanterior && pegadoposterior){
-        anterior->fin = head->fin;
-        anterior->sig = head->sig;
+     if(pegadoanterior && pegadoposterior){
+        last->fin = head->fin;
+        last->sig = head->sig;
         free(head);
     } else if(pegadoanterior){ // && !pegadoposterior
-        anterior->fin += tam;
+        last->fin += tam;
     } else if(pegadoposterior){ // && !pegadoanterior
         head->inicio -= tam;
     } else { // si no está pegado ni al anterior ni al siguiente!
-        nuevo = (T_Manejador) malloc(sizeof(struct T_Nodo));
-        nuevo->inicio = dir;
-        nuevo->fin = dir + tam - 1;
-        nuevo->sig = head;
-        if(anterior == NULL){
-            *manejador = nuevo;
+        new = (T_Manejador) malloc(sizeof(struct T_Nodo));
+        new->inicio = dir;
+        new->fin = dir + tam - 1;
+        new->sig = head;
+        if(last == NULL){
+            *manejador = new;
         } else {
-            anterior->sig = nuevo;
+            last->sig = new;
         }
     }
+    
 }
 
 void destruir(T_Manejador* manejador){
     T_Manejador head = *manejador;
-    T_Manejador sig;
+    T_Manejador next = NULL;
     while(head != NULL){
-        sig = head->sig;
+        next = head->sig;
         free(head);
-        head = sig;
-    }
+        head = next;
+    }   
     *manejador = NULL;
 }
 
@@ -87,6 +86,7 @@ void mostrar(T_Manejador manejador){
         manejador = manejador->sig;
     }
     printf("\n");
+    fflush(stdout);
 }
 
 

@@ -7,10 +7,9 @@
  Description : Resolution of the problem
  ============================================================================
  */
-
+#include "gestion_memoria.c"
 #include <stdio.h>
 #include <stdlib.h>
-#include "gestion_memoria.h"
 
 int main(void) {
 
