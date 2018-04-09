@@ -8,17 +8,16 @@
 #include "ListaCircular.h"
 #include <stdio.h>
 
-
 // Lee el fichero y lo introduce en la lista
 void cargarFichero (char * nombreFich, TListaCircular *lc){
 	FILE* f = fopen(nombreFich, "rb");
-	char* name;
+	char* name = NULL;
 
 	if(f == NULL){
 	    perror("ERROR abriendo el fichero");
 	}else{
-	    while(fread(&*name, sizeof(name), 1, f) == 1){
-	        insertar(&*lc, *name);
+	    while(fread(&name, sizeof(char), 1, f) == 1){
+	        insertar(&lc, name);
 	    }
 	}
 }

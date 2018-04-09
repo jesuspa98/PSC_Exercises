@@ -6,17 +6,21 @@
 #include <string.h>
 #include "ListaCircular.h"
 
-// Crea una lista circular vacía (sin ningún nodo)
+
+// Crea una lista circuladr vacía (sin ningún nodo)
 void crear(TListaCircular *lc){
     *lc = malloc(sizeof(struct TNodo));
+    (*lc)->nombre[0] = '\0';
 }
 
 // Inserta un nuevo nodo con el dato nombre al final de la lista circular
 void insertar(TListaCircular *lc,char *nombre){
     TListaCircular new;
-    crear(new);
 
-    strcpy(new->nombre, nombre);
+    new = malloc(sizeof(struct TNodo));
+
+    strcpy(nombre, (*lc)->nombre);
+
     if(*lc != NULL){
         *lc = new;
         new ->sig = new;
@@ -29,18 +33,12 @@ void insertar(TListaCircular *lc,char *nombre){
 
 // Recorre la lista circular escribiendo los nombres de los nodos en la pantalla
 void recorrer(TListaCircular lc){
-    int i;
     while(lc != NULL){
-        printf("Nombre: ");
-        i = 0;
-        while(lc->nombre[i] != '\0' && i < 30){
-            printf("%c", lc->nombre[i]);
-            i++;
-        }
-        printf("\n");
+        printf("Nombre: %s", lc->nombre);
         lc = lc->sig;
     }
     printf("\n");
+
 
 }
 
