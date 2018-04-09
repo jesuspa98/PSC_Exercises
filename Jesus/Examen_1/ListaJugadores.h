@@ -1,4 +1,7 @@
-typedef struct TNodo *TLista;
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef struct TNodo * TLista;
 struct Jugador{
 	int codjugador;     //código que identifica al jugador
 	int codequipo;      //código de equipo
@@ -6,7 +9,7 @@ struct Jugador{
 	float precio;       //valor de mercado del jugador en millones de euros
 };
 struct TNodo{
-	struct Jugador jugador;;
+	struct Jugador jugador;
 	TLista sig;
 };
 
@@ -31,5 +34,3 @@ void agregar_a_fichero (struct Jugador jugador, int *ok);
 
 //Destruye la lista de jugadores, liberando todos los nodos de la misma de memoria.
 void destruir(TLista *lista);
-
-

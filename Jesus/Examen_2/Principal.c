@@ -1,8 +1,8 @@
 /*
  * Principal.c
  *
- *  Created on: 12/4/2016
- *      Author: mmar
+ *  Created on: 09/04/2018
+ *      Author: Jesús Parejo Aliaga
  */
 
 #include "ListaCircular.h"
@@ -10,12 +10,17 @@
 
 
 // Lee el fichero y lo introduce en la lista
-void cargarFichero (char * nombreFich, TListaCircular *lc)
-{
-	// REALIZAR ESTE PROCEDIMIENTO
+void cargarFichero (char * nombreFich, TListaCircular *lc){
+	FILE* f = fopen(nombreFich, "rb");
+	char* name;
 
-
-
+	if(f == NULL){
+	    perror("ERROR abriendo el fichero");
+	}else{
+	    while(fread(&*name, sizeof(name), 1, f) == 1){
+	        insertar(&*lc, *name);
+	    }
+	}
 }
 
 
