@@ -1,5 +1,5 @@
 /*
- * Principal.c
+ *  Principal.c
  *
  *  Created on: 09/04/2018
  *      Author: Jesús Parejo Aliaga
@@ -11,14 +11,15 @@
 // Lee el fichero y lo introduce en la lista
 void cargarFichero (char * nombreFich, TListaCircular *lc){
 	FILE* f = fopen(nombreFich, "rb");
-	char* name = NULL;
+	char nuevoNodo[30];
 
 	if(f == NULL){
-	    perror("ERROR abriendo el fichero");
+	    perror("Error abriendo fichero");
 	}else{
-	    while(fread(&name, sizeof(char), 1, f) == 1){
-	        insertar(&lc, name);
+	    while(fscanf(f, "%s", nuevoNodo) != EOF){
+	        insertar(&lc, nuevoNodo);
 	    }
+	    fclose(f);
 	}
 }
 
@@ -32,7 +33,7 @@ int main(){
 
 	int n;
 
-	cargarFichero ("listaNombres.txt",&lc);
+	cargarFichero ("listaNombres.txt", &lc);
 	recorrer(lc);
 	printf("Introduce un número entre 0 y 60: ");
 	fflush(stdout);
