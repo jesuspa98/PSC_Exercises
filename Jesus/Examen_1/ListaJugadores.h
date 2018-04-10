@@ -18,7 +18,7 @@ struct TNodo{
 void crearLista(TLista *lc);
 
 //Devuelve 0 si j1 es igual que j2, es decir misma posición, mismo precio y mismo código. Devuelve -1 si j1 es menor que j2 según el criterio descrito y +1 en caso contrario
-int compara (struct Jugador j1, struct Jugador j2);
+int compara(struct Jugador j1, struct Jugador j2);
 
 //Inserta el jugador en la lista siempre que no esté repetido. Para insertarlo correctamente debe cumplirse el criterio de ordenación indicado al comienzo del enunciado. En ok devolverá un 1 si se ha podido insertar, y un 0 si no se pudo insertar porque estuviera repetido ese jugador en la lista
 void insertar_jugador(TLista *lista, struct Jugador j, int *ok);
