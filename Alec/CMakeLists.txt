@@ -12,3 +12,4 @@ add_executable(Abril17 Sistemas/Abril17/Jugador.c Sistemas/Abril17/Principal.c S
 add_executable(Practica1 Sistemas/practica1/gestion_memoria.h Sistemas/practica1/practica1.c Sistemas/practica1/gestion_memoria.c)
 add_executable(Practica2 Sistemas/practica2/decrypter.c)
 add_executable(Practica2B Sistemas/practica2b/arbolbb.c Sistemas/practica2b/Practica2B.c Sistemas/practica2b/arbolbb.h)
+add_executable(Abril2016 Sistemas/Abril2016/ListaCircular.c Sistemas/Abril2016/ListaCircular.h Sistemas/Abril2016/Principal.c)
