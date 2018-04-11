@@ -30,27 +30,26 @@ void insertar(TListaCircular *lc,char *nombre){
 
 // Recorre la lista circular escribiendo los nombres de los nodos en la pantalla
 void recorrer(TListaCircular lc){
-        TListaCircular aux = lc;
-    while(aux != lc){
-        printf("Nombre: %s", aux->nombre);
+    TListaCircular aux = lc;
+    do{
+        printf("Nombre: %s\n", aux->nombre);
         aux = aux->sig;
-    }
+    }while(aux!= lc);
     printf("\n");
 }
 
 // Devuelve el número de nodos de la lista
 int longitud(TListaCircular lc){
-    int n = 0;
-    TListaCircular aux;
+    if(lc == NULL)
+        return 0;
 
-    if(lc != NULL){
-        aux = lc->sig;
-        while(aux != lc){
-            n++;
-            aux = aux->sig;
-        }
+    TListaCircular current = lc->sig;
+    int contador = 1;
+    while(current != lc) {
+        current = current->sig;
+        contador++;
     }
-    return n;
+    return contador;
 }
 
 // Mueve el puntero exterto de la lista n nodos (siguiendo la dirección de la lista)
