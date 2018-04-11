@@ -25,13 +25,15 @@ void insertar(TListaCircular *lc, char *nombre) {
 }
 
 void recorrer(TListaCircular lc) {
-	TListaCircular first = lc;
+    TListaCircular first = lc;
+    if(lc != NULL){
 	printf("%s\n", first->nombre);
-	lc = lc->sig;
-	while(lc != first) {
-		printf("%s\n", lc->nombre);
-		lc = lc->sig;
-	}
+	    lc = lc->sig;
+	    while(lc != first) {
+		    printf("%s\n", lc->nombre);
+		    lc = lc->sig;
+	    }
+    }
 }
 
 int longitud(TListaCircular lc) {
@@ -56,41 +58,37 @@ void mover(TListaCircular *lc,int n) {
 }
 
 void extraer(TListaCircular *lc,char *nombre){
-	// TODO hacerlo bien la verdad sinceramente segmentation fault 11
-	TListaCircular current, prev, first;
-	first = *lc;
-	current = (*lc)->sig;
-	prev = NULL;
-	while(current != first && strcmp(current->nombre, nombre) != 0) {
-		prev = current;
-		current = current->sig;
-	}
-    if(strcmp(current->nombre, nombre) == 0) {
-	    if(prev == NULL){
-            while(current->sig != first){
-                current = current->sig;
-                }
-            current = first->sig;
-            (*lc) = current;
-	    } else {
-            prev->sig = current->sig;
-            *lc = prev;
-	    }
-	}
+    if(*lc == NULL)
+        nombre = "";
+    else {
+        strcpy(nombre, (*lc)->nombre);
+
+        int n = longitud(*lc);
+        TListaCircular primero = *lc;
+
+        mover(lc, n-1);
+        TListaCircular siguiente = (*lc)->sig;
+        (*lc)->sig = siguiente->sig;
+
+        free(primero);
+    }
 }
 
-
-int main(int argc, char const *argv[]) {
-	TListaCircular l;
-	crear(&l);
-	insertar(&l, "xD");
-	insertar(&l, "rob");
-	insertar(&l, "erto");
-	insertar(&l, "xd");
-	recorrer(l);
-	printf("eeeee!\n");
-	extraer(&l, "xd");
-	printf("not eeee!\n");
-	recorrer(l);
-	return 0;
-}
+/*
+int main(){
+    TListaCircular lc;
+    crear(&lc);
+    insertar(&lc, "a");
+    insertar(&lc, "b");
+    insertar(&lc, "c");
+    insertar(&lc, "d");
+    insertar(&lc, "j");
+    recorrer(lc);
+    printf("%d", longitud(lc));
+    printf("jajaja      \n");
+    extraer(&lc, "j");
+    recorrer(lc);
+    printf("%d", longitud(lc));
+    printf("LOEEEL      \n");
+    return 0;
+}*/

@@ -12,18 +12,18 @@
 // Lee el fichero y lo introduce en la lista
 void cargarFichero (char * nombreFich, TListaCircular *lc) {
 	FILE* file;
-	char *name = NULL;
+	char name[30];
 	file = fopen(nombreFich, "rb");
 	if(file != NULL) {
-		while(fscanf(file, name)) {
-
+		while(fscanf(file, "%s", name) != -1) {
+            insertar(lc, name);
 		}
 	}
 	fclose(file);
 }
 
 
-/*int main(){
+int main(){
 	TListaCircular lc;
 	crear(&lc);
 
@@ -35,17 +35,17 @@ void cargarFichero (char * nombreFich, TListaCircular *lc) {
 	recorrer(lc);
 	printf("Introduce un número entre 0 y 60: ");
 	fflush(stdout);
-	scanf("%d",&n);
-	while (longitud(lc)>1){
-			mover(&lc,n);
-			extraer(&lc,nombre);
-			printf("%s ha salido del círculo \n",nombre);
+	scanf("%d", &n);
+	while (longitud(lc) > 1){
+			mover(&lc, n);
+			extraer(&lc, nombre);
+			printf("%s ha salido del círculo \n", nombre);
 		}
 
 	extraer(&lc,nombre);
 	printf("--------------------------------------\n");
-	printf("%s ha sido seleccionado !!!!! \n",nombre);
+	printf("%s ha sido seleccionado !!!!! \n", nombre);
 	fflush(stdout);
 
 	return 0;
-}*/
+}
