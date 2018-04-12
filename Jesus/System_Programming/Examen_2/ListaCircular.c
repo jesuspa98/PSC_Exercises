@@ -13,18 +13,24 @@ void crear(TListaCircular *lc){
 
 // Inserta un nuevo nodo con el dato nombre al final de la lista circular
 void insertar(TListaCircular *lc,char *nombre){
-    TListaCircular next, new;
-    if(*lc == NULL) {
+    TListaCircular first, current, new;
+    first = *lc;
+
+    if(first == NULL){
         new = malloc(sizeof(struct TNodo));
         new->sig = new;
         strcpy(new->nombre, nombre);
         *lc = new;
-    } else {
+    }else{
+        current = first->sig;
+        while(current->sig != first){
+            current = current->sig;
+        }
         new = malloc(sizeof(struct TNodo));
-        next = (*lc)->sig;
         strcpy(new->nombre, nombre);
-        (*lc)->sig = new;
-        new->sig = next;
+        current->sig = new;
+        new->sig = first;
+        (*lc) = new;
     }
 }
 

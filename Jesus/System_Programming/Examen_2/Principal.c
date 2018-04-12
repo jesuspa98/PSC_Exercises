@@ -34,8 +34,16 @@ int main(){
 	int n;
 
 	cargarFichero ("listaNombres.txt", &lc);
+    /*insertar(&lc, "a");
+    insertar(&lc, "b");
+    insertar(&lc, "c");
+    insertar(&lc, "d");
+    insertar(&lc, "e");
+    insertar(&lc, "f");
+    insertar(&lc, "g");
+    insertar(&lc, "h");*/
 	recorrer(lc);
-	printf("Introduce un numero entre 0 y 60: ");
+	printf("\nIntroduce un numero entre 0 y 60: ");
 	fflush(stdout);
 	scanf("%d",&n);
 	while (longitud(lc)>1){

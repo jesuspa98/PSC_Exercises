@@ -21,7 +21,6 @@ int main(){
 	fflush(stdout);
 
 	destruir (&lj);
-
 	/***************************************/
 	return 0;
 }
