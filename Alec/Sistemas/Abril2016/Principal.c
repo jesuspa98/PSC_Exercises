@@ -33,13 +33,13 @@ int main(){
 
 	cargarFichero ("listaNombres.txt", &lc);
 	recorrer(lc);
-	printf("Introduce un número entre 0 y 60: ");
+	printf("Introduce un nï¿½mero entre 0 y 60: ");
 	fflush(stdout);
 	scanf("%d", &n);
 	while (longitud(lc) > 1){
 			mover(&lc, n);
 			extraer(&lc, nombre);
-			printf("%s ha salido del círculo \n", nombre);
+			printf("%s ha salido del cï¿½rculo \n", nombre);
 		}
 
 	extraer(&lc,nombre);

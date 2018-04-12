@@ -9,18 +9,23 @@ void crear(TListaCircular *lc) {
 
 
 void insertar(TListaCircular *lc, char *nombre) {
-	TListaCircular next, new;
-	if(*lc == NULL) {
+	TListaCircular first, current, new;
+	first = *lc;
+	if(first == NULL) {
 		new = malloc(sizeof(struct TNodo));
 		new->sig = new;
 		strcpy(new->nombre, nombre);
 		*lc = new;
 	} else {
+		current = first->sig;
+		while(current->sig != first){
+			current = current->sig;
+		}
 		new = malloc(sizeof(struct TNodo));
-		next = (*lc)->sig;
 		strcpy(new->nombre, nombre);
-		(*lc)->sig = new;
-		new->sig = next;	
+		current->sig = new;
+		new->sig = first;
+		(*lc) = new;
 	}
 }
 
@@ -57,9 +62,9 @@ void mover(TListaCircular *lc,int n) {
 	*lc = lista;
 }
 
-void extraer(TListaCircular *lc,char *nombre){
+void extraer(TListaCircular *lc, char *nombre){
     if(*lc == NULL)
-        nombre = "";
+        nombre = "\0";
     else {
         strcpy(nombre, (*lc)->nombre);
 
@@ -73,22 +78,3 @@ void extraer(TListaCircular *lc,char *nombre){
         free(primero);
     }
 }
-
-/*
-int main(){
-    TListaCircular lc;
-    crear(&lc);
-    insertar(&lc, "a");
-    insertar(&lc, "b");
-    insertar(&lc, "c");
-    insertar(&lc, "d");
-    insertar(&lc, "j");
-    recorrer(lc);
-    printf("%d", longitud(lc));
-    printf("jajaja      \n");
-    extraer(&lc, "j");
-    recorrer(lc);
-    printf("%d", longitud(lc));
-    printf("LOEEEL      \n");
-    return 0;
-}*/

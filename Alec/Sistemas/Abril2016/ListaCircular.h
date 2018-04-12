@@ -1,5 +1,4 @@
 
-
 typedef struct TNodo * TListaCircular;
 struct TNodo{
 	char nombre[30];
