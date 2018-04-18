@@ -1,4 +1,4 @@
-# C_Exercises
+# PSC_Exercises
 C Exercises
 
 Ejercicios en C de la Asignatura Programación de Sistemas y Concurrencia.
