@@ -35,3 +35,8 @@ Examen del año pasado del parcial del bloque de sistemas:
 Examen de hace dos años del bloque de sistemas:
 
     https://bit.ly/2GYj4wl
+
+# Práctica 3
+Practica 3 de concurrencia:
+    
+    https://bit.ly/2qIXmTq
