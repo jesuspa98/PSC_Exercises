@@ -1,10 +1,11 @@
 # PSC_Exercises
-C Exercises
+PSC Exercises
 
-Ejercicios en C de la Asignatura Programación de Sistemas y Concurrencia.
+Ejercicios en C y Java de la Asignatura Programación de Sistemas y Concurrencia.
 
 Aqui están los enlaces a los diferentes enunciados: 
 
+# Programación de Sistemas
 # Relación 1
 Ejercicios de la primera relación de programación de sistemas:
 
@@ -36,6 +37,7 @@ Examen de hace dos años del bloque de sistemas:
 
     https://bit.ly/2GYj4wl
 
+# Concurrencia
 # Práctica 3
 Practica 3 de concurrencia:
     
