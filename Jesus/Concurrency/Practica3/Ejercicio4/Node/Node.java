@@ -45,12 +45,7 @@ public class Node extends Thread {
         }
     }
 
-    public void shuffle(List<Integer> list1, List<Integer> list2){
-        for(int i = 0; i < list1.size(); i++){
-            list.add(list1.get(i));
-        }
-        for(int i = 0; i < list2.size(); i++){
-            list.add(list2.get(i));
-        }
+    private void shuffle(List<Integer> list1, List<Integer> list2){
+        list.sort(Integer::compareTo);
     }
 }
