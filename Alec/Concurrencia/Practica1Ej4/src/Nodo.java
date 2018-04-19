@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -19,10 +20,6 @@ public class Nodo extends java.lang.Thread {
         }
     }
 
-    private void mezcla(List<Integer> list1, List<Integer> list2){
-
-    }
-
     public void run(){
         if (list.size() >= 2){
             Nodo hijo1 = new Nodo();
@@ -40,7 +37,7 @@ public class Nodo extends java.lang.Thread {
                 e.printStackTrace();
             }
 
-            mezcla(hijo1.list, hijo2.list);
+            list.sort(Integer::compareTo);
         }
     }
 
@@ -60,11 +57,10 @@ public class Nodo extends java.lang.Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        for (int i = 0; i < NUME; i++){
-            System.out.println(lista.get(i) +  " ");
+        for (Integer aLista : lista) {
+            System.out.print(aLista + " ");
         }
-        System.out.println("\n");
+        System.out.println("");
     }
 
 }
