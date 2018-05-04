@@ -3,6 +3,8 @@ out/
 *.d
 .DS_Store
 .idea/
+*.iml
+Concurrencia1/
 cmake-build-debug/
 # Object files
 *.o
