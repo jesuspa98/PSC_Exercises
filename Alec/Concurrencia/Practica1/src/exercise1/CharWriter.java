@@ -8,7 +8,7 @@ public class CharWriter extends java.lang.Thread {
     }
 
     public void run(){
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 1000; i++){
             System.out.println(c);
         }
     }
@@ -22,6 +22,8 @@ public class CharWriter extends java.lang.Thread {
         c.start();
         try {
             a.join();
+            b.join();
+            c.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

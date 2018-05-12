@@ -1,4 +1,4 @@
-package exercise2;
+package exercise2_3;
 
 public class Reader extends java.lang.Thread {
     private SharedVariable sv;
@@ -8,7 +8,7 @@ public class Reader extends java.lang.Thread {
     }
 
     public void run() {
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 100; i++){
             System.out.println(sv.getValue());
         }
     }

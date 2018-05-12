@@ -1,4 +1,4 @@
-package exercise2;
+package exercise2_3;
 
 public class SharedVariable {
     private int value;
@@ -7,17 +7,13 @@ public class SharedVariable {
     public SharedVariable(){ isTheValueBusy = false; }
 
     public void setValue(int value) {
-        while(isTheValueBusy){
-            Thread.yield();
-        }
+        while(isTheValueBusy) { /*polling!*/ }
         isTheValueBusy = true;
         this.value = value;
     }
 
     public int getValue() {
-        while(!isTheValueBusy){
-            Thread.yield();
-        }
+        while(!isTheValueBusy) { /*polling!*/ }
         isTheValueBusy = false;
         return value;
     }

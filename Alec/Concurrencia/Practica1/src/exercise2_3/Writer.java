@@ -1,4 +1,4 @@
-package exercise2;
+package exercise2_3;
 
 public class Writer extends java.lang.Thread{
     private SharedVariable sv;
@@ -7,9 +7,8 @@ public class Writer extends java.lang.Thread{
         this.sv = sv;
     }
 
-    @Override
     public void run() {
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 100; i++){
             sv.setValue(i);
         }
     }
