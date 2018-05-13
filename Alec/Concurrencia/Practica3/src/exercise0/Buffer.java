@@ -18,8 +18,8 @@ public class Buffer {
     }
 
     public void set(int i) throws InterruptedException {
-        mutex.acquire();
         thereAreSpace.acquire();
+        mutex.acquire();
         elems[producedIndex] = i;
         producedIndex = (producedIndex + 1) % elems.length;
         mutex.release();

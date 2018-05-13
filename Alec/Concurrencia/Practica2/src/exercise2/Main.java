@@ -12,7 +12,6 @@ public class Main {
         r2.start();
         p1.start();
         p2.start();
-
         try {
             r1.join();
             r2.join();
@@ -21,7 +20,6 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         System.out.println("El nivel del lago es " + l.getWaterLevel());
     }
 }
