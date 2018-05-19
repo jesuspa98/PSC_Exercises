@@ -12,7 +12,6 @@ public class SetterRobot extends Thread{
   
   
   public void run(){
-	  System.out.println("COLOCADOR");
     while(true){
       try {
           Thread.sleep(r.nextInt(100));

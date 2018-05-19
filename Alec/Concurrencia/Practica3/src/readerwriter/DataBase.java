@@ -31,7 +31,8 @@ public class DataBase extends DataBaseUnfair {
         reading.acquire();
         mutex1.acquire();
         numberOfReaders++;
-        System.out.println("Reader with id " + id + " reading the DB. Current readers in DB " + numberOfWriters);
+        System.out.println("Reader with id " + id + " reading the DB. Current readers in DB " + numberOfReaders
+                + " Current writers in DB " + numberOfWriters);
         if (numberOfReaders == 1) writing.acquire();
         mutex1.release();
         reading.release();
@@ -41,7 +42,8 @@ public class DataBase extends DataBaseUnfair {
     public void readerLeaving(int id) throws InterruptedException {
         mutex1.acquire();
         numberOfReaders--;
-        System.out.println("Reader with id " + id + " leaving DB. Current readers in DB " + numberOfWriters);
+        System.out.println("Reader with id " + id + " leaving the DB. Current readers in DB " + numberOfReaders
+                + " Current writers in DB " + numberOfWriters);
         if (numberOfReaders == 0) writing.release();
         mutex1.release();
     }
