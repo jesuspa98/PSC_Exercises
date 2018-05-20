@@ -11,7 +11,7 @@ public class Barbershop {
     private volatile int clientsWaiting = 0;
     private Semaphore sleep = new Semaphore(0, true);
     private Semaphore mutex = new Semaphore(1, true); // ensures that the barber and the barbershop
-    // are updatet in mutex (exclusion mutua).
+    // are updated in mutex (exclusion mutua).
 
 
     public void nextClient() throws InterruptedException {
