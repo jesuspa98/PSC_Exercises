@@ -11,19 +11,22 @@ public class DataBase extends DataBaseUnfair {
     public void writerEntering(int id) throws InterruptedException {
         mutexWriters.acquire();
         numberOfWriters++;
-        System.out.println("Writer with id " + id + " writing in DB. Current writers in DB " + numberOfWriters);
+        System.out.println("Writer with id " + id + " waiting for write into DB. Current readers in DB " + numberOfReaders
+                + " Current writers in DB " + numberOfWriters);
         if (numberOfWriters == 1) reading.acquire();
         mutexWriters.release();
         super.writing.acquire();
+        System.out.println("Writer with id " + id + " writing in database");
     }
 
     public void writerLeaving(int id) throws InterruptedException {
         mutexWriters.acquire();
         numberOfWriters--;
-        System.out.println("Writer with id " + id + " leaving DB. Current writers in DB " + numberOfWriters);
+        System.out.println("Writer with id " + id + " leaving DB. Current readers in DB " + numberOfReaders
+                + " Current writers in DB " + numberOfWriters);
         if (numberOfWriters == 0) reading.release();
         mutexWriters.release();
-        writing.release();
+        super.writing.release();
     }
 
     public void readerEntering(int id) throws InterruptedException {
@@ -31,9 +34,10 @@ public class DataBase extends DataBaseUnfair {
         reading.acquire();
         mutex1.acquire();
         numberOfReaders++;
-        System.out.println("Reader with id " + id + " reading the DB. Current readers in DB " + numberOfReaders
+        System.out.println("Reader with id " + id + " in queue to read the DB. Current readers in DB " + numberOfReaders
                 + " Current writers in DB " + numberOfWriters);
         if (numberOfReaders == 1) writing.acquire();
+        System.out.println("Reader with id " + id + " start reading database");
         mutex1.release();
         reading.release();
         mutex3.release();
