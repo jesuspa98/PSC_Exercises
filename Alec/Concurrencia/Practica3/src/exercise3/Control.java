@@ -5,6 +5,7 @@ import java.util.concurrent.Semaphore;
 //esta clase representa una torre de control (hay dos). Es inusual en que es tanto una hebra
 //como la que implementa las condiciones de sincronizaci�n
 public class Control extends Thread {
+    private int id = 0;
   //Puesto que hay una �nica pista, �sta se modela mediante el recurso compartido "airport"
   private Airport airport;
   private Semaphore controlSemaphore = new Semaphore(0);
@@ -14,9 +15,8 @@ public class Control extends Thread {
   /*hacen falta sem�foros para las condiciones de sincronizaci�n entre la torre de control
    * y los aviones que quieran aterrizar en ella. Recu�rdese que antes de cada aterrizaje,
    * cada avi�n elije una direcci�n, y puede escoger una distinta cada vez.*/
-  
-  public Control(Airport a) {
-    airport = a;
+  public Control(Airport a, int id) {
+    airport = a; this.id = id;
   }
   
   public void run() {
@@ -33,7 +33,9 @@ public class Control extends Thread {
   
   public void esperar_solicitud() throws InterruptedException {
 	//la torre de control debe esperar a que un avi�n le notifique de que quiere aterrizar
+      System.out.println("Controlador " + id +  " durmiendo...");
       controlSemaphore.acquire();
+      System.out.println("Controlador " + id + " despierto!");
   }
   public void atender_solicitud() throws InterruptedException {
     airport.pedirPista();
