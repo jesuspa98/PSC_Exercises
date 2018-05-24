@@ -3,8 +3,8 @@ import Print.Print;
 public class MainClass{
     public static void main(String[] args) {
         Print thread1 = new Print(10, 'a');
-        Print thread2 = new Print(5, 'E');
-        Print thread3 = new Print(10, 'x');
+        Print thread2 = new Print(5, 'b');
+        Print thread3 = new Print(10, 'c');
 
         thread1.start();
         thread2.start();
@@ -18,6 +18,6 @@ public class MainClass{
             e.printStackTrace();
         }
 
-        System.out.println("Finished");
+        System.out.println("-----------------------" + "\nFinished");
     }
 }

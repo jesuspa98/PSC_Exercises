@@ -48,3 +48,21 @@ Práctica 3:
 Practica 3 de concurrencia:
     
     https://bit.ly/2qIXmTq
+
+Práctica 4:
+--
+Practica 4 del tema 5 de concurrencia:
+
+    https://bit.ly/2Hw6dCB
+    
+Práctica 5
+--
+Práctica 5 del tema 6 de concurrencia:
+    
+    https://bit.ly/2rFrT51
+
+Práctica 6
+--
+Práctica 6 del tema 6 de concurrencia:
+
+    https://bit.ly/2Ltd4e3
