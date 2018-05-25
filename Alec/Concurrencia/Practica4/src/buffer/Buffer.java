@@ -46,17 +46,17 @@ public class Buffer {
             writers[i] = new Writer(buff, i);
         }
         for (int i = 0; i < 10; i++){
-            writers[i].start();
+            readers[i].start();
         }
         for (int i = 0; i < 10; i++){
-            readers[i].start();
+            writers[i].start();
         }
         try {
             for (int i = 0; i < 10; i++) {
-                writers[i].join();
+                readers[i].join();
             }
             for (int i = 0; i < 10; i++) {
-                readers[i].join();
+                writers[i].join();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
