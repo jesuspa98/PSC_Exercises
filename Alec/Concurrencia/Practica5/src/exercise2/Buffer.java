@@ -5,68 +5,55 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Buffer {
-    int[] buf;
-    int prod = 0, numEspacioLibre;
-    int[] consumidores;
-    int[] contadores;
-    int[] numEspaciosOcupados;
-    private Lock l = new ReentrantLock();
-    // UNA COLA POR CONDICION DE SINCRONIZACION
-    private Condition esperaProductores = l.newCondition();
-    private Condition esperaConsumidores = l.newCondition();
+    private int freeSpaces, produced;
+    private int[] buffer, thereIsData, consumers, counter;
+    private Lock lock = new ReentrantLock();
+    private Condition waitConsumer = lock.newCondition();
+    private Condition waitProducer = lock.newCondition();
 
-
-    public Buffer(int longitud, int ncons) {
-        numEspacioLibre = 1;
-        buf = new int[longitud];
-        consumidores = new int[ncons];
-        contadores = new int[longitud];
-        numEspaciosOcupados = new int[ncons];
+    public Buffer(int longitud, int nconsumers) {
+        freeSpaces = 1;
+        buffer = new int[longitud];
+        counter = new int[longitud];
+        thereIsData = new int[nconsumers];
+        consumers = new int[nconsumers];
     }
 
-    public void poner(int id, int dato) throws InterruptedException {
-        l.lock();
+    public void extraer(int id) throws InterruptedException {
+        lock.lock();
         try {
-            while(numEspacioLibre == 0) {
-                esperaProductores.await();
+            while (thereIsData[id] == 0) {
+                waitConsumer.await();
             }
-            buf[prod] = dato;
-            contadores[prod] = 0;
-            --numEspacioLibre;
-            prod = (prod+1)%buf.length;
-            for(int i = 0; i<numEspaciosOcupados.length; ++i) {
-                ++numEspaciosOcupados[i];
+            int indexConsumer = consumers[id];
+            int dato = buffer[indexConsumer];
+            counter[indexConsumer]++;
+            if(counter[indexConsumer] == consumers.length) {
+                waitProducer.signal();
             }
-
-            System.out.println("El productor " + id + " produce el dato " + dato);
-
-            esperaConsumidores.signalAll();
+            thereIsData[id]--;
+            consumers[id] = (consumers[id] + 1) % buffer.length;
+            System.out.println("Consumer " + id + " reades the data " + dato);
         } finally {
-            l.unlock();
+            lock.unlock();
         }
     }
 
-    public int extraer(int id) throws InterruptedException {
-        l.lock();
+    public void poner(int id, int dato) throws InterruptedException {
+        lock.lock();
         try {
-            while(numEspaciosOcupados[id] == 0) {
-                esperaConsumidores.await();
+            while(freeSpaces == 0) {
+                waitProducer.await();
             }
-            int indcons = consumidores[id];
-            int dato = buf[indcons];
-            contadores[indcons]++;
-            if(contadores[indcons]==consumidores.length) {
-                ++numEspacioLibre;
-                esperaProductores.signal(); // despertar�a a la primera cola.
+            buffer[produced] = dato;
+            produced = (produced + 1) % buffer.length;
+            for(int i = 0; i < thereIsData.length; i++) {
+                thereIsData[i]++;
             }
-            --numEspaciosOcupados[id];
-            consumidores[id] = (consumidores[id]+1)%buf.length;
-
-            System.out.println("El consumidor " + id + " lee el dato " + dato);
-
-            return dato;
+            System.out.println("The producer  " + id + " puts into the buffer " + dato);
+            waitConsumer.signalAll();
         } finally {
-            l.unlock();
+            lock.unlock();
         }
     }
 
