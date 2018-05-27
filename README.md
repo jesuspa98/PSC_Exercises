@@ -66,3 +66,9 @@ Práctica 6
 Práctica 6 del tema 6 de concurrencia:
 
     https://bit.ly/2Ltd4e3
+    
+Práctica 7
+--
+Práctica 7 del tema 6 de concurrencia:
+
+	https://bit.ly/2LyV02n
