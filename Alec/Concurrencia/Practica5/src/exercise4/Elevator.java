@@ -12,9 +12,8 @@ public class Elevator {
     private volatile int bigCarsIn;
     private boolean carsMovingOut = false;
 
-    private Lock lock = new ReentrantLock();
+    private Lock lock = new ReentrantLock(true);
     private Condition[] wait = { lock.newCondition(), lock.newCondition() };
-    private Condition elevatorMoveWait = lock.newCondition();
     private Condition carsGettingOut = lock.newCondition();
 
     public void getOut(int id, int type) throws InterruptedException {
@@ -48,56 +47,62 @@ public class Elevator {
                     wait[type].await();
                 }
                 bigCarsIn++;
+                System.out.println("A " + CARS[type] + " car with id " + id + " has entered the elevator... Big ones: " + bigCarsIn + " small ones: " + smallCarsIn);
+                waitGettingOut();
+                bigCarsIn--;
+                System.out.println("!! A " + CARS[type] + " car with id " + id + " has left the elevator... Big ones: " + bigCarsIn + " small ones: " + smallCarsIn);
+                System.out.println("Car has left...");
             } else {
                 while (((bigCarsIn == 1 && smallCarsIn == 2) || (smallCarsIn == 4 && bigCarsIn == 0)) || carsMovingOut) {
                     System.out.println("Car " + id + " waiting to enter the elevator...");
                     wait[type].await();
                 }
                 smallCarsIn++;
+                System.out.println("A " + CARS[type] + " car with id " + id + " has entered the elevator... Big ones: " + bigCarsIn + " small ones: " + smallCarsIn);
+                waitGettingOut();
+                smallCarsIn--;
+                System.out.println("!! A " + CARS[type] + " car with id " + id + " has left the elevator... Big ones: " + bigCarsIn + " small ones: " + smallCarsIn);
             }
-            System.out.println("A " + CARS[type] + " car with id " + id + " has entered the elevator... Big ones: " + bigCarsIn + " small ones: " + smallCarsIn);
-            if (2*bigCarsIn + smallCarsIn == 4) {
-                System.out.println("Señalizado!");
-                elevatorMoveWait.signal();
-            }
+            carsGettingOut(type);
         } finally {
             lock.unlock();
         }
     }
 
-    public void elevator() throws InterruptedException {
-        lock.lock();
-        try {
-            while(2*bigCarsIn + smallCarsIn != 4 || carsMovingOut) {
-                elevatorMoveWait.await();
-            }
-            System.out.println(" !! Elevator is moving...");
+    private void waitGettingOut() throws InterruptedException {
+        if((bigCarsIn == 0 && smallCarsIn == 4) || (bigCarsIn == 1 && smallCarsIn == 2)) {
             Thread.sleep(1000);
-            System.out.println(" !! Elevator is letting the cars go out...");
             carsMovingOut = true;
             carsGettingOut.signalAll();
-        } finally {
-            lock.unlock();
+        } else {
+            carsGettingOut.await();
+        }
+    }
+
+    private void carsGettingOut(int type) throws InterruptedException {
+        if(bigCarsIn == 0 && smallCarsIn == 0) {
+            System.out.println();
+            carsMovingOut = false;
+            wait[0].signalAll();
+            wait[1].signalAll();
+        } else {
+            wait[type].await();
         }
     }
 
     public static void main(String[] args) {
         Elevator el = new Elevator();
-        ElevatorThread elT = new ElevatorThread(el);
         Car[] cars = new Car[20];
-        Random random = new Random();
         for(int i = 0; i < 20; i++) {
-            cars[i] = new Car(i, random.nextInt(2), el);
+            cars[i] = new Car(i, i % 2, el);
         }
         for(int i = 0; i < 20; i++) {
             cars[i].start();
         }
-        elT.start();
         try {
             for(int i = 0; i < 20; i++) {
                 cars[i].join();
             }
-            elT.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

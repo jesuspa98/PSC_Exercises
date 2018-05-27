@@ -15,7 +15,6 @@ public class Car extends Thread {
         try {
             while (true) {
                 elevator.getIn(id, type);
-                elevator.getOut(id, type);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
