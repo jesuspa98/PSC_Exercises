@@ -6,7 +6,6 @@ public class RecipienteMonitores implements Recipiente {
 	
 	private volatile int cantidadSopaEnMililitros; //cantidad de sopa contenida en el recipiente
 	private int S; //capacidad maxima del recipiente
-	private volatile boolean estaComiendo = false;
 
 	
 	public RecipienteMonitores(int s){
