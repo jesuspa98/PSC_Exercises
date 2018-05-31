@@ -6,8 +6,8 @@ import java.util.concurrent.Semaphore;
 public class Guarderia {
 	private volatile int numeroBebes = 0, numeroAdultos = 0;
 	private Semaphore mutex = new Semaphore(1, true);
-	private Semaphore adultosEsperan = new Semaphore(1, true);
-	private Semaphore bebesEsperan = new Semaphore(1, true);
+	private Semaphore adultosEsperan = new Semaphore(0, true);
+	private Semaphore bebesEsperan = new Semaphore(0, true);
 	
 	/**
 	 * Un bebe que quiere entrar en la guarderia llama a este metodo.
