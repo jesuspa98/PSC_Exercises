@@ -1,5 +1,3 @@
-package amigosc;
-
 public class Amigos {
 	private long a;
 	private long b;

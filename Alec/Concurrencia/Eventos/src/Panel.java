@@ -1,16 +1,14 @@
-package amigosc;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import amigosPublish.Amigos;
+
 
 import java.util.*;
 import java.util.List;
 public class Panel extends JPanel{
 	
-	private JLabel etiqueta = new JLabel("cuántos amigos quieres?");
+	private JLabel etiqueta = new JLabel("cuï¿½ntos amigos quieres?");
 	private JLabel mensaje = new JLabel("GUI Creada");
 	private JTextField numero = new JTextField(3);
 	

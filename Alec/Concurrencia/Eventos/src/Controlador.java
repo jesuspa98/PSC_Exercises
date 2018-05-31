@@ -1,5 +1,3 @@
-package amigosc;
-
 import java.awt.event.*;
 
 import javax.swing.*;
