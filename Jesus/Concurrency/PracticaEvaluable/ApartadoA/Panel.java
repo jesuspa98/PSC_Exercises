@@ -31,7 +31,9 @@ public class Panel extends JPanel {
         scroll.createVerticalScrollBar();
         scroll1.createVerticalScrollBar();
         scroll2.createVerticalScrollBar();
-        scroll.setPreferredSize(new Dimension(400, 170));
+        scroll1.remove(scroll1.getHorizontalScrollBar());
+        scroll2.remove(scroll2.getHorizontalScrollBar());
+        scroll.remove(scroll.getHorizontalScrollBar());
 
         JPanel north = new JPanel();
         JPanel nortth = new JPanel();
@@ -77,7 +79,7 @@ public class Panel extends JPanel {
         south.add(BorderLayout.SOUTH, etiquetaPares);
 
         this.add(BorderLayout.NORTH, north);
-        this.add(CENTER, center);
+        this.add(BorderLayout.CENTER, center);
         this.add(BorderLayout.SOUTH, south);
     }
 
