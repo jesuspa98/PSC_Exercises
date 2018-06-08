@@ -23,9 +23,14 @@ public class Bandeja{
 	public void reponer() throws InterruptedException{
 		despiertaReponedor.acquire();
 		mutex.acquire();
-		System.out.println("Se ha repuesto la bandeja con magdalenas premium y normales");
-		pastelesNormales = CAPACIDAD / 2;
-		pastelesPremium = CAPACIDAD / 2;
+		if(pastelesNormales == 0) {
+			pastelesNormales = CAPACIDAD / 2;
+			System.out.println("Se ha repuesto la bandeja con magdalenas normales");
+		}
+		if(pastelesPremium == 0) {
+			pastelesPremium = CAPACIDAD / 2;
+			System.out.println("Se ha repuesto la bandeja con magdalenas premium");
+		}
 		estaReponiendo.release(clientesEsperando);
 		clientesEsperando = 0;
 		mutex.release();
@@ -48,7 +53,7 @@ public class Bandeja{
 		}
 		pastelesPremium--;
 		System.out.println("El cliente PREMIUM " + id + " coge una magdalenita. Quedan " + pastelesPremium);
-		if ((pastelesNormales == 0) &&  (pastelesPremium == 0)) {
+		if ((pastelesPremium == 0)) {
 			despiertaReponedor.release();
 		}
 		mutex.release();
@@ -70,7 +75,7 @@ public class Bandeja{
 		}
 		pastelesNormales--;
 		System.out.println("El cliente " + id + " coge una magdalenita. Quedan " + pastelesNormales);
-		if((pastelesNormales == 0) &&  (pastelesPremium == 0)) {
+		if((pastelesNormales == 0)) {
 			despiertaReponedor.release();
 		}
 		mutex.release();
