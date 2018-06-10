@@ -1,18 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.List;
 
 import static java.awt.BorderLayout.CENTER;
 
 public class Panel extends JPanel {
+    private int counter1, counter2, anotherCounter;
     private JLabel etiqueta = new JLabel("¿Longitud de la lista a generar de pares aleatorios?");
     private JTextField number = new JTextField(3);
     private JTextArea listaPares1 = new JTextArea(10, 20);
-    private JScrollPane scroll1 = new JScrollPane(listaPares1);
     private JTextArea listaPares2 = new JTextArea(10, 20);
+    private JScrollPane scroll1 = new JScrollPane(listaPares1);
     private JScrollPane scroll2 = new JScrollPane(listaPares2);
     private JLabel etiquetaPares1 = new JLabel("Lista de naturales A");
     private JLabel etiquetaPares2 = new JLabel("Lista de naturales B");
@@ -21,7 +20,6 @@ public class Panel extends JPanel {
     private JLabel etiquetaPares = new JLabel("Comprobaciones de Ternas pitagóricas");
     private JButton clear = new JButton("Clear");
     private JButton submit = new JButton("Submit");
-    private int number1 = 0, number2 = 0;
 
     public Panel() {
         this.setLayout(new BorderLayout());
@@ -32,7 +30,9 @@ public class Panel extends JPanel {
         scroll.createVerticalScrollBar();
         scroll1.createVerticalScrollBar();
         scroll2.createVerticalScrollBar();
-        scroll.setPreferredSize(new Dimension(400, 170));
+        scroll1.remove(scroll1.getHorizontalScrollBar());
+        scroll2.remove(scroll2.getHorizontalScrollBar());
+        scroll.remove(scroll.getHorizontalScrollBar());
 
         JPanel north = new JPanel();
         JPanel nortth = new JPanel();
@@ -91,32 +91,38 @@ public class Panel extends JPanel {
         submit.setActionCommand("ENTER");
     }
 
-    public int number() {
-        return Integer.parseInt(number.getText());
-    }
-
-    public void writeNumbersPairs1(int number) {
-        listaPares1.append("(" + number1 + ": " + number + ")\n");
-        number1++;
-    }
-
-    public void writeNumbersPairs2(int number) {
-        listaPares2.append("(" + number2 + ": " + number + ")\n");
-        number2++;
-    }
-
-    public void writeNumbers(String mensaje, int number) {
-        listaPares.append(number + ": " + mensaje + "\n");
-    }
-
-
-    public void mensaje(String mensaje) {
-        listaPares.setText(mensaje);
-    }
-
     public void clear() {
         listaPares.setText("");
         listaPares1.setText("");
         listaPares2.setText("");
+        counter1 = counter2 = anotherCounter = 0;
     }
+
+    public void writeNumbers(String message) {
+        listaPares.setText(listaPares.getText() + anotherCounter + ": " + message + "\n");
+        anotherCounter++;
+    }
+
+    public void message(String message) {
+        listaPares.setText(message);
+    }
+    
+    public int number() {
+        return Integer.parseInt(number.getText());
+    }
+
+    public void writeNaturalNumbersA(List<Integer> list) {
+        for (int number : list) {
+            counter1++;
+            listaPares1.setText(listaPares1.getText() + "(" + counter1 + ": " + number + ")" + "\n");
+        }
+    }
+
+    public void writeNaturalNumbersB(List<Integer> list) {
+        for (int number : list) {
+            counter2++;
+            listaPares2.setText(listaPares2.getText() + "(" + counter2 + ": " + number + ")" + "\n");
+        }
+    }
+
 }
