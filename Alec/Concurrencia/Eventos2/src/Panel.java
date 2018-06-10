@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Panel extends JPanel{
+	private int counter;
+	private int anotherCounter;
 	private JLabel askingLabel = new JLabel("¿Longitud de la lista a generar de pares aleatorios?");
 	private JTextField number = new JTextField(3);
 	private JTextArea naturalList1 = new JTextArea(10, 20);
@@ -17,6 +19,8 @@ public class Panel extends JPanel{
 	private JLabel pitagoricLabel = new JLabel("Comprobaciones de Ternas pitagóricas");
 
 	public Panel() {
+		counter = 0;
+		anotherCounter = 0;
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 		pitagoricTrio.setEditable(false);
@@ -67,8 +71,9 @@ public class Panel extends JPanel{
 		this.add(BorderLayout.SOUTH, south);
 	}
 
-	public void writeNumbers(String message, int number) {
-		pitagoricTrio.append(number + ": " + message + "\n");
+	public void writeNumbers(String message) {
+		pitagoricTrio.setText(pitagoricTrio.getText() + anotherCounter + ": " + message + "\n");
+		anotherCounter++;
 	}
 
 	public void message(String message) {
@@ -78,8 +83,6 @@ public class Panel extends JPanel{
 	public void setController(ActionListener controller) {
 		number.addActionListener(controller);
 		number.setActionCommand("ENTER");
-		number.addActionListener(controller);
-		number.setActionCommand("ENVIAR");
 	}
 
 	public int number() {
@@ -87,18 +90,18 @@ public class Panel extends JPanel{
 	}
 
 	public void writeNaturalNumbersA(List<Integer> list) {
-		int counter = 0;
 		for(int number : list) {
 			counter++;
-			naturalList1.append("(" + counter + ": " + number + ")" + "\n");
+			naturalList1.setText(naturalList1.getText() + "(" + counter + ": " + number + ")" + "\n");
+			//naturalList1.append("(" + counter + ": " + number + ")" + "\n");
 		}
 	}
 
 	public void writeNaturalNumbersB(List<Integer> list) {
-		int counter = 0;
 		for(int number : list) {
 			counter++;
-			naturalList2.append("(" + counter + ": " + number + ")" + "\n");
+			naturalList2.setText(naturalList2.getText() + "(" + counter + ": " + number + ")" + "\n");
+			//naturalList2.append("(" + counter + ": " + number + ")" + "\n");
 		}
 	}
 

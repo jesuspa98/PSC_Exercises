@@ -7,23 +7,30 @@ public class GenWorker extends SwingWorker<List<Integer>,Integer>{
 	private Random rnd = new Random();
 	private int number;
 	private Panel panel;
-	private Listener listener;
+	private ListenerGeneradores listenerGeneradores;
+	private SetterListener uwu;
+	private int generatedNum;
+	private int id;
 
-	public GenWorker(int number, Panel panel) {
+	public GenWorker(int number, Panel panel, int id) {
 		this.number = number;
 		this.panel = panel;
-
+        this.id = id;
 	}
 
-	@Override
+    public int getNumber() {
+        return generatedNum;
+    }
+
+    @Override
 	protected List<Integer> doInBackground() throws Exception {
 		List<Integer> list = new ArrayList<>();
 		int i = 0;
 		try {
 			while(i < number && !isCancelled()) {
-				int nextInt = rnd.nextInt(100) + 1;
-				list.add(nextInt);
-				publish(nextInt);
+			    generatedNum = rnd.nextInt(100) + 1;
+				list.add(generatedNum);
+				publish(generatedNum);
 				i++;
 				Thread.sleep(50);
 			}
@@ -35,12 +42,15 @@ public class GenWorker extends SwingWorker<List<Integer>,Integer>{
 
     @Override
     protected void process(List<Integer> chunks) {
-        for(int number : chunks) {
-
-        }
+	    this.listenerGeneradores.pasarInformacion(chunks);
+	    this.uwu.pasemosLosNumeros(chunks.get(0), id);
     }
 
-    public void setListener(Listener listener) {
-        this.listener = listener;
+    public void setListenerGeneradores(ListenerGeneradores listenerGeneradores) {
+        this.listenerGeneradores = listenerGeneradores;
+    }
+
+    public void setterListener(SetterListener uwu) {
+	    this.uwu = uwu;
     }
 }
