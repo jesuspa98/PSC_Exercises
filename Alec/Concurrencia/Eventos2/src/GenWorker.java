@@ -11,6 +11,7 @@ public class GenWorker extends SwingWorker<List<Integer>,Integer>{
 	private SetterListener uwu;
 	private int generatedNum;
 	private int id;
+	private boolean isFirst;
 
 	public GenWorker(int number, Panel panel, int id) {
 		this.number = number;
@@ -28,6 +29,7 @@ public class GenWorker extends SwingWorker<List<Integer>,Integer>{
 		int i = 0;
 		try {
 			while(i < number && !isCancelled()) {
+			    isFirst = i == 0;
 			    generatedNum = rnd.nextInt(100) + 1;
 				list.add(generatedNum);
 				publish(generatedNum);

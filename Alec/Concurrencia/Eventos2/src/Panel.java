@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Panel extends JPanel{
-	private int counter;
+	private int counter2;
 	private int anotherCounter;
 	private JLabel askingLabel = new JLabel("¿Longitud de la lista a generar de pares aleatorios?");
 	private JTextField number = new JTextField(3);
@@ -17,9 +17,11 @@ public class Panel extends JPanel{
 	private JTextArea pitagoricTrio = new JTextArea(10, 50);
 	private JScrollPane scroll = new JScrollPane(pitagoricTrio);
 	private JLabel pitagoricLabel = new JLabel("Comprobaciones de Ternas pitagóricas");
+    private int counter1;
 
-	public Panel() {
-		counter = 0;
+    public Panel() {
+		counter1 = 0;
+		counter2 = 0;
 		anotherCounter = 0;
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
@@ -91,16 +93,16 @@ public class Panel extends JPanel{
 
 	public void writeNaturalNumbersA(List<Integer> list) {
 		for(int number : list) {
-			counter++;
-			naturalList1.setText(naturalList1.getText() + "(" + counter + ": " + number + ")" + "\n");
+			counter1++;
+			naturalList1.setText(naturalList1.getText() + "(" + counter1 + ": " + number + ")" + "\n");
 			//naturalList1.append("(" + counter + ": " + number + ")" + "\n");
 		}
 	}
 
 	public void writeNaturalNumbersB(List<Integer> list) {
 		for(int number : list) {
-			counter++;
-			naturalList2.setText(naturalList2.getText() + "(" + counter + ": " + number + ")" + "\n");
+			counter2++;
+			naturalList2.setText(naturalList2.getText() + "(" + counter2 + ": " + number + ")" + "\n");
 			//naturalList2.append("(" + counter + ": " + number + ")" + "\n");
 		}
 	}
