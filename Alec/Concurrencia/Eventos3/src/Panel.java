@@ -1,9 +1,13 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+import java.nio.channels.Pipe;
 import java.util.List;
 
 public class Panel extends JPanel{
+	private int counter1;
+	private int counter2;
+	private int anotherCounter;
 	private JLabel askingLabel = new JLabel("¿Longitud de la lista a generar de pares aleatorios?");
 	private JTextField number = new JTextField(3);
 	private JTextArea naturalList1 = new JTextArea(10, 20);
@@ -15,8 +19,11 @@ public class Panel extends JPanel{
 	private JTextArea pitagoricTrio = new JTextArea(10, 50);
 	private JScrollPane scroll = new JScrollPane(pitagoricTrio);
 	private JLabel pitagoricLabel = new JLabel("Comprobaciones de Ternas pitagóricas");
+	private JProgressBar progressBar = new JProgressBar(0);
 
 	public Panel() {
+		counter1 = 0;
+		anotherCounter = 0;
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 		pitagoricTrio.setEditable(false);
@@ -60,15 +67,19 @@ public class Panel extends JPanel{
 		//Abao
 		south.setLayout(new BorderLayout());
 		south.add(BorderLayout.NORTH, scroll);
-		south.add(BorderLayout.SOUTH, pitagoricLabel);
+		JPanel apaño = new JPanel();
+		apaño.add(BorderLayout.NORTH, pitagoricLabel);
+		apaño.add(BorderLayout.SOUTH, progressBar);
+		south.add(BorderLayout.SOUTH, apaño);
 		// to compactado no pongo todo bien escrito porque pasa esto.
 		this.add(BorderLayout.NORTH, north);
 		this.add(BorderLayout.CENTER, center);
 		this.add(BorderLayout.SOUTH, south);
 	}
 
-	public void writeNumbers(String message, int number) {
-		pitagoricTrio.append(number + ": " + message + "\n");
+	public void writeNumbers(String message) {
+		pitagoricTrio.setText(pitagoricTrio.getText() + anotherCounter + ": " + message + "\n");
+		anotherCounter++;
 	}
 
 	public void message(String message) {
@@ -81,23 +92,28 @@ public class Panel extends JPanel{
 	}
 
 	public int number() {
-		return Integer.parseInt(number.getText());
+        progressBar.setMaximum(Integer.parseInt(number.getText()));
+        return Integer.parseInt(number.getText());
 	}
 
-	public void writeNaturalNumbersA(List<Integer> list) {
-		int counter = 0;
+	public void writeNaturalNumbersA(List<Integer> list, boolean isFirst) {
+	    if(isFirst) {
+	        counter1 = 0;
+        }
 		for(int number : list) {
-			counter++;
-			naturalList1.append("(" + counter + ": " + number + ")" + "\n");
+			progressBar.setValue(counter1+1);
+			counter1++;
+			naturalList1.setText(naturalList1.getText() + "(" + counter1 + ": " + number + ")" + "\n");
 		}
 	}
 
-	public void writeNaturalNumbersB(List<Integer> list) {
-		int counter = 0;
-		for(int number : list) {
-			counter++;
-			naturalList2.append("(" + counter + ": " + number + ")" + "\n");
+	public void writeNaturalNumbersB(List<Integer> list, boolean isFirst) {
+        if(isFirst) {
+            counter2 = 0;
+        }
+        for(int number : list) {
+			counter2++;
+			naturalList2.setText(naturalList2.getText() + "(" + counter2 + ": " + number + ")" + "\n");
 		}
 	}
-
 }

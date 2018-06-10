@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 
 public class Prinicipal {
