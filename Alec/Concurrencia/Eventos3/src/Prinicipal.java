@@ -11,7 +11,7 @@ public class Prinicipal {
 		ventana.pack();
 		ventana.setVisible(true);
 		ventana.setResizable(false);
-		ventana.setSize(575, 475);
+		ventana.setSize(600, 500);
 	}
 
 	public static void main(String[] args) {

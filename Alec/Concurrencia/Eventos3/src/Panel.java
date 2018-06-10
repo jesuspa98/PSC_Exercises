@@ -75,7 +75,6 @@ public class Panel extends JPanel{
 		this.add(BorderLayout.NORTH, north);
 		this.add(BorderLayout.CENTER, center);
 		this.add(BorderLayout.SOUTH, south);
-		this.add(BorderLayout.SOUTH, progressBar);
 	}
 
 	public void writeNumbers(String message) {
@@ -117,9 +116,4 @@ public class Panel extends JPanel{
 			naturalList2.setText(naturalList2.getText() + "(" + counter2 + ": " + number + ")" + "\n");
 		}
 	}
-
-	public void resetProgressBar() {
-	    progressBar.setValue(0);
-    }
-
 }
