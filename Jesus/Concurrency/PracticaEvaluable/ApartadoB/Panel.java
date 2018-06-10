@@ -6,7 +6,7 @@ import java.util.List;
 import static java.awt.BorderLayout.CENTER;
 
 public class Panel extends JPanel {
-    private int counter1, counter2, anotherCounter;
+    private int counter1 = 1, counter2 = 1, counter = 1;
     private JLabel etiqueta = new JLabel("¿Longitud de la lista a generar de pares aleatorios?");
     private JTextField number = new JTextField(3);
     private JTextArea listaPares1 = new JTextArea(10, 20);
@@ -91,37 +91,35 @@ public class Panel extends JPanel {
         submit.setActionCommand("ENTER");
     }
 
-    public void clear() {
-        listaPares.setText("");
-        listaPares1.setText("");
-        listaPares2.setText("");
-        counter1 = counter2 = anotherCounter = 0;
-    }
-
-    public void writeNumbers(String message) {
-        listaPares.setText(listaPares.getText() + anotherCounter + ": " + message + "\n");
-        anotherCounter++;
-    }
-
     public void message(String message) {
         listaPares.setText(message);
     }
-    
+
+    public JTextField getNumber() {
+        return number;
+    }
+
+    public void clear() {
+        listaPares1.setText("");
+        listaPares2.setText("");
+        listaPares.setText("");
+        counter1 = counter2 = counter = 1;
+    }
+
     public int number() {
         return Integer.parseInt(number.getText());
     }
 
-    public void writeNaturalNumbersA(List<Integer> list) {
-        for (int number : list) {
+    public void addList(String string, char caracter) {
+        if (caracter == 'A') {
+            listaPares1.append("(" + counter1 + ": " + string + ")\n");
             counter1++;
-            listaPares1.setText(listaPares1.getText() + "(" + counter1 + ": " + number + ")" + "\n");
-        }
-    }
-
-    public void writeNaturalNumbersB(List<Integer> list) {
-        for (int number : list) {
+        } else if (caracter == 'B') {
+            listaPares2.append("(" + counter2 + ": " + string + ")\n");
             counter2++;
-            listaPares2.setText(listaPares2.getText() + "(" + counter2 + ": " + number + ")" + "\n");
+        } else if (caracter == 'R') {
+            listaPares.append(counter + ": " + string + "\n");
+            counter++;
         }
     }
 

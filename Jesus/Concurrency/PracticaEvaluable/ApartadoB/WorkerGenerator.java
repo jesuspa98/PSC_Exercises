@@ -2,54 +2,67 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class WorkerGenerator extends SwingWorker<List<Integer>,Integer>{
-    private Random rnd = new Random();
+public class WorkerGenerator extends SwingWorker<Void, Integer> {
     private int number;
     private Panel panel;
-    private ListenerGeneradores listenerGeneradores;
-    private SetterListener uwu;
-    private int generatedNum;
-    private int id;
-    private boolean isFirst;
+    private char aChar;
+    private List<Integer> list = new ArrayList<>();
+    private Lock lock = new ReentrantLock(true);
+    protected Condition condition = lock.newCondition();
 
-    public WorkerGenerator(int number, Panel panel, int id) {
+    public WorkerGenerator(int number, Panel panel, char l) {
         this.number = number;
         this.panel = panel;
-        this.id = id;
+        this.aChar = l;
     }
 
-    @Override
-    protected List<Integer> doInBackground() throws Exception {
-        panel.clear();
-        List<Integer> list = new ArrayList<>();
-        int i = 0;
-        try {
-            while(i < number && !isCancelled()) {
-                isFirst = i == 0;
-                generatedNum = rnd.nextInt(100) + 1;
-                list.add(generatedNum);
-                publish(generatedNum);
-                i++;
-                Thread.sleep(50);
+    protected Void doInBackground() throws Exception {
+        Random rnd = new Random();
+        int num;
+
+        for (int i = 0; i < number; i++) {
+            num = rnd.nextInt(100) + 1;
+            lock.lock();
+
+            try {
+                list.add(num);
+                condition.signalAll();
+            } finally {
+                lock.unlock();
             }
-        } catch(InterruptedException | ClassCastException e){
-            panel.message("Tarea cancelada!!!");
+
+            publish(num);
+            Thread.sleep(50);
         }
-        return list;
+        return null;
     }
 
-    @Override
-    protected void process(List<Integer> chunks) {
-        this.listenerGeneradores.pasarInformacion(chunks);
-        this.uwu.pasarNumeros(chunks.get(0), id);
+    public int getVeces() {
+        return number;
     }
 
-    public void setListenerGeneradores(ListenerGeneradores listenerGeneradores) {
-        this.listenerGeneradores = listenerGeneradores;
+    public Integer getElemento(int i) throws InterruptedException {
+        lock.lock();
+
+        try {
+            while (list.size() <= i) {
+                condition.await();
+            }
+
+            return list.get(i);
+        } finally {
+            lock.unlock();
+        }
+
     }
 
-    public void setterListener(SetterListener uwu) {
-        this.uwu = uwu;
+    protected void process(List<Integer> num) {
+        for (int number : num) {
+            panel.addList(String.valueOf(number), aChar);
+        }
     }
 }

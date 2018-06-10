@@ -1,61 +1,48 @@
 import javax.swing.*;
 import java.util.List;
 
-public class WorkerSearcher extends SwingWorker<String, String> {
-    private int number1, number2;
+public class WorkerSearcher extends SwingWorker<Void, String> {
+    private WorkerGenerator workerGenerator1;
+    private WorkerGenerator workerGenerator2;
     private Panel panel;
-    private ListenerComprobadores listenerComprobadores;
+    private char aChar;
+    private int leidos;
 
-    public WorkerSearcher(int number1, int number2, Panel panel) {
-        this.number1 = number1;
+    public WorkerSearcher(WorkerGenerator workerGenerator1, WorkerGenerator workerGenerator2, Panel panel, char aChar) {
+        this.workerGenerator1 = workerGenerator1;
+        this.workerGenerator2 = workerGenerator2;
         this.panel = panel;
-        this.number2 = number2;
+        this.aChar = aChar;
+        leidos = 0;
+
     }
 
-    public WorkerSearcher() {
-    }
+    protected Void doInBackground() throws Exception {
 
-    public void setNumber1(int number1) {
-        this.number1 = number1;
-    }
+        int number1, number2, veces = workerGenerator1.getVeces();
+        double pit;
+        while (leidos < veces) {
+            number1 = workerGenerator1.getElemento(leidos);
+            number2 = workerGenerator2.getElemento(leidos);
+            pit = Math.pow(number1, 2) + Math.pow(number2, 2);
+            pit = Math.sqrt(pit);
 
-    public void setNumber2(int number2) {
-        this.number2 = number2;
-    }
+            if ((pit % 1) == 0) {
+                publish("TERNA PITAGORICA!!! " + number1 + "^2 + " + number2 + "^2 == " + pit);
+            } else {
+                publish(number1 + "^2 + " + number2 + "^2 == " + pit);
+            }
 
-    @Override
-    protected String doInBackground() {
-        double pitValue = Math.round(Math.sqrt(Math.pow(number2, 2) + Math.pow(number1, 2)));
-        double notPitValue = Math.sqrt(Math.pow(number1, 2) + Math.pow(number2, 2));
-        if (isPytagoric(number1, number2)) {
-            publish("TERNA PITAGORICA!!!! " + number1 + "^2 + " + number2 + "^2 == " + pitValue);
-            return "TERNA PITAGORICA!!!! " + number1 + "^2 + " + number2 +
-                    "^2 == " + pitValue;
-        } else {
-            publish(number1 + "^2 + " + number2 + "^2 == " + notPitValue);
-            return number1 + "^2 + " + number2 +
-                    "^2 == " + notPitValue;
-        }
-    }
-
-    private boolean isPytagoric(int num1, int num2) {
-        double pit = Math.sqrt(Math.pow(num1, 2) + Math.pow(num2, 2));
-        return pit == Math.round(pit);
-    }
-
-    @Override
-    protected void process(List<String> chunks) {
-        StringBuilder sb = new StringBuilder();
-
-        for (String string : chunks) {
-            sb.append(string);
+            leidos++;
         }
 
-        this.listenerComprobadores.pasarInformacion(sb.toString());
+        return null;
+
     }
 
-    public void setListener(ListenerComprobadores writeNumbers) {
-        this.listenerComprobadores = writeNumbers;
+    public void process(List<String> p) {
+        for (String string : p) {
+            panel.addList(string, aChar);
+        }
     }
-
 }
